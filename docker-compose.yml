@@ -1,0 +1,7 @@
+services:
+  web:
+    image: devops-build-app
+    container_name: devops-build-container
+    ports:
+      - "8081:80"
+

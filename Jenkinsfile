@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t my-nginx-app:latest ."
+                sh "docker build -t my-nginx-app:latest -f devops-build/dockerfile devops-build'
             }
         }
 
