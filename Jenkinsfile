@@ -11,7 +11,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 // Build using Dockerfile inside devops-build
-                sh 'docker build -t my-nginx-app:latest -f devops-build/dockerfile devops-build'
+                sh 'docker build -t my-nginx-app:latest -f devops-build/dockerfile ./devops-build'
             }
         }
 
