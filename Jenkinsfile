@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // Build using Dockerfile inside devops-build
+                // Build using Dockerfile at repo root
                 sh 'docker build -t my-nginx-app:latest .'
             }
         }
@@ -22,15 +22,15 @@ pipeline {
                         echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                         docker tag my-nginx-app:latest $DOCKER_USER/my-nginx-app:latest
                         docker push $DOCKER_USER/my-nginx-app:latest
-                       '''
+                    '''
+                }
+            }
         }
-    }
-}
-
 
         stage('Deploy') {
             steps {
-                sh './devops-build/deploy.sh'
+                // Run deploy script with bash to avoid "not found" errors
+                sh 'bash devops-build/deploy.sh'
             }
         }
     }
