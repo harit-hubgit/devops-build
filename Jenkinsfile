@@ -30,7 +30,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Run deploy script with bash to avoid "not found" errors
-                sh 'bash devops-build/deploy.sh'
+                sh 'docker run -d -p 80:80 my-nginx-app:latest'
             }
         }
     }
