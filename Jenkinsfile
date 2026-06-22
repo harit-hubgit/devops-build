@@ -17,15 +17,16 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'haritdockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh """
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-harit', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
                         echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                        docker tag my-nginx-app:latest haritdockerhub/my-nginx-app:latest
-                        docker push haritdockerhub/my-nginx-app:latest
-                    """
-                }
-            }
+                        docker tag my-nginx-app:latest $DOCKER_USER/my-nginx-app:latest
+                        docker push $DOCKER_USER/my-nginx-app:latest
+                       '''
         }
+    }
+}
+
 
         stage('Deploy') {
             steps {
